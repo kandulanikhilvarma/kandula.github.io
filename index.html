@@ -3073,7 +3073,20 @@ body:has(.cursor-dot) * { cursor: none !important; }
     <!-- RIGHT -->
     <div class="hero-right">
 
-      <img src="photo.jpg" alt="Nikhilvarma Kandula" class="hero-photo fade-up">
+      <!-- 
+        ════════════════════════════════════════
+        HOW TO ADD YOUR PHOTO:
+        1. Save your photo as "photo.jpg" (or .png)
+        2. Place it in the SAME folder as this HTML file
+        3. Replace the div below with:
+           <img src="photo.jpg" alt="Nikhilvarma Kandula" class="hero-photo fade-up">
+        ════════════════════════════════════════
+      -->
+      <div class="photo-placeholder fade-up">
+        <div class="photo-placeholder-icon">📷</div>
+        <p class="photo-placeholder-text">Save your photo as<br><strong>photo.jpg</strong><br>in this folder</p>
+        <span class="photo-placeholder-hint">img src="photo.jpg" class="hero-photo fade-up"</span>
+      </div>
 
       <div class="hero-stats fade-up">
         <div class="stat-item">
@@ -4278,7 +4291,7 @@ body:has(.cursor-dot) * { cursor: none !important; }
 <!-- ============================================================
      SCRIPTS
 ============================================================ -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // Language toggle
 function setLang(lang) {
   document.body.className = 'lang-' + lang;
@@ -4596,4 +4609,25 @@ if (radarEl) {
 }
 
 // 5. Section draw-line reveal
-document.querySelectorAll('.section-header').forEach(
+document.querySelectorAll('.section-header').forEach(function(header) {
+  var line = document.createElement('div');
+  line.className = 'section-draw-line';
+  header.appendChild(line);
+  new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) line.classList.add('drawn'); });
+  }, { threshold: 0.5 }).observe(header);
+});
+
+// ── Auto-update footer year ───────────────────────────────────
+(function() {
+  const yr = new Date().getFullYear();
+  const enEl = document.getElementById('footerYear');
+  const deEl = document.getElementById('footerYearDe');
+  if (enEl) enEl.textContent = yr;
+  if (deEl) deEl.textContent = yr;
+})();
+
+</script>
+
+</body>
+</html>
